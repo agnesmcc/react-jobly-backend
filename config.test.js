@@ -1,5 +1,7 @@
 "use strict";
 
+const PG_URI = "postgresql://localhost:5432/";
+
 describe("config can come from env", function () {
   test("works", function() {
     process.env.SECRET_KEY = "abc";
@@ -18,10 +20,10 @@ describe("config can come from env", function () {
     delete process.env.BCRYPT_WORK_FACTOR;
     delete process.env.DATABASE_URL;
 
-    expect(config.getDatabaseUri()).toEqual("jobly");
+    expect(config.getDatabaseUri()).toEqual(`${PG_URI}jobly`);
     process.env.NODE_ENV = "test";
 
-    expect(config.getDatabaseUri()).toEqual("jobly_test");
+    expect(config.getDatabaseUri()).toEqual(`${PG_URI}jobly_test`);
   });
 })
 
